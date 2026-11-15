@@ -52,6 +52,31 @@ const questions = [
     choices: ["乃木神社", "於保多神社", "諏訪神社", "黒龍神社"],
     answer: 0,
   },
+  {
+    question: "問題11：ハウステンボスの白い観覧車の頂上でなにをした？",
+    choices: ["自撮り", "プロポーズ", "キス", "ハグ"],
+    answer:2,
+  },
+  {
+    question: "問題12：婚姻届けの証人の欄を家族みんなで書いた場所は？",
+    choices: ["家","梅の花","丸亀製麺","万作"],
+    answer:1,
+  },
+  {
+    question: "問題13：二度目の東京旅行の目的は？",
+    choices: ["東京ディズニーリゾート","ベンツのカフェ","乃木神社","東京スカイツリー"],
+    answer:3,
+  },
+  {
+    question: "問題14：事故の後、二人で泊まった温泉は？",
+    choices: ["宇奈月温泉","和倉温泉","下呂温泉","別府温泉"],
+    answer:0,
+  },
+  {
+    question: "問題15：三度目の東京旅行の二日目に行ったのは？",
+    choices: ["原宿","浅草","明治神宮","ハリーポッター"],
+    answer:2,
+  },
 ]
 
 function App() {
@@ -59,7 +84,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [message, setMessage] = useState("")
-
+  const [correctCount, setCorrectCount] = useState(0)
   const currentQuestion = questions[currentIndex]
   const isLastQuestion = currentIndex === questions.length - 1
   const isFinished = currentIndex >= questions.length
@@ -68,6 +93,7 @@ function App() {
     setSelected(choiceIndex)
     if (choiceIndex === currentQuestion.answer) {
       setMessage("正解！🎉")
+      setCorrectCount(correctCount + 1)
     } else {
       setMessage("惜しい！😢")
     }
@@ -83,6 +109,7 @@ function App() {
     setSelected(null)
     setMessage("")
     setCurrentIndex(0)
+    setCorrectCount(0)
     setScreen("title")
   }
 
@@ -103,9 +130,10 @@ function App() {
       <div className="quiz-container">
         <h1>クイズ終了！</h1>
         <p>お疲れ様でした😊</p>
+        <p>正解数:{correctCount}/{questions.length}問</p>
         <button className="next-button" onClick={handleRestart}>もう一度やる</button>
       </div>
-    )
+    );
   }
 
   return (
