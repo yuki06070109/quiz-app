@@ -1,3 +1,4 @@
+import confetti from "canvas-confetti"
 import { useState } from 'react'
 import './App.css'
 
@@ -89,11 +90,26 @@ function App() {
   const isLastQuestion = currentIndex === questions.length - 1
   const isFinished = currentIndex >= questions.length
 
+  function celebrate() {
+    const colors = ["#d63384", "#ffb6c1", "#ffe0ec", "#ffd700"]
+    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors })
+    const sakura = confetti.shapeFromText({ text: "🌸", scalar: 2 })
+    confetti({
+      particleCount: 20,
+      spread: 100,
+      origin: { y: 0.4 },
+      shapes: [sakura],
+      scalar: 2,
+      gravity: 0.6,
+    })
+  }
+
   function handleAnswer(choiceIndex) {
     setSelected(choiceIndex)
     if (choiceIndex === currentQuestion.answer) {
       setMessage("正解！🎉")
       setCorrectCount(correctCount + 1)
+      celebrate()
     } else {
       setMessage("惜しい！😢")
     }
